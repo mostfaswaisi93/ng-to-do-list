@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-body">
+        <h2>Tasks List</h2>
+        <a class="btn btn-success float-right" routerLink="create">Create Task</a>
+    </div>
+    <table class="table table-bordered table-hover" style="width: 95%; margin-left: 20px;">
+        <thead>
+            <tr>
+                <th scope="col">Task Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let task of tasks">
+            <tr>
+                <td>{{ task.name }}</td>
+                <td>{{ task.date | date }}</td>
+                <td> <span [ngSwitch]="task.status">
+            <span *ngSwitchCase="1" class="badge badge-info"> New </span>
+                    <span *ngSwitchCase="2" class="badge badge-warning"> In Progress </span>
+                    <span *ngSwitchCase="3" class="badge badge-success"> Completed </span>
+                    <span *ngSwitchDefault class="badge badge-dark"> N/A </span>
+                    </span>
+                </td>
+                <td>{{ task.description }}</td>
+                <td>
+                    <a class="btn btn-primary" (click)="editTask(task.id)">Edit</a>
+                    <a class="btn btn-info" (click)="showTask(task.id)">Show</a>
+                    <a class="btn btn-danger" (click)="deleteTask(task.id)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

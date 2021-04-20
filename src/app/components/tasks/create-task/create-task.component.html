@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Add task</h4>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="addTaskForm">
+                    <div class="form-group row">
+                        <label for="name" class="col-4 col-form-label">Name:</label>
+                        <div class="col-8">
+                            <input id="name" name="name" placeholder="Name" class="form-control here" type="text" formControlName="name" [class.is-valid]="addTaskForm.controls.name.valid" [class.is-invalid]="addTaskForm.controls.name.invalid && addTaskForm.controls.name.touched"
+                            />
+                            <div class="invalid-feedback" [hidden]="!addTaskForm.controls.name.errors?.required">
+                                Please Name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="date" class="col-4 col-form-label">Date:</label>
+                        <div class="col-8">
+                            <input id="date" name="date" placeholder="Date" class="form-control here" type="date" formControlName="date" [class.is-valid]="addTaskForm.controls.date.valid" [class.is-invalid]="addTaskForm.controls.date.invalid && addTaskForm.controls.date.touched"
+                            />
+                            <div class="invalid-feedback">Please Date is required.</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="status" class="col-4 col-form-label">Status:</label>
+                        <div class="col-8">
+                            <select name="status" id="status" class="form-control here" formControlName="status" [class.is-valid]="addTaskForm.controls.status.valid" [class.is-invalid]="addTaskForm.controls.status.invalid && addTaskForm.controls.status.touched">
+                <option *ngFor="let st of statusClass;" [value]="st.id">
+                  {{ st.name }}
+                </option>
+              </select>
+                            <div class="invalid-feedback">Please Status is required.</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-4 col-form-label">Description:</label>
+                        <div class="col-8">
+                            <textarea class="form-control" placeholder="Description" name="description" id="description" formControlName="description" [class.is-valid]="addTaskForm.controls.description.valid" [class.is-invalid]="addTaskForm.controls.description.invalid && addTaskForm.controls.description.touched"></textarea>
+                            <div class="invalid-feedback">Please Description is required.</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-4 col-8">
+                            <button name="submit" type="submit" [disabled]="addTaskForm.invalid" class="btn btn-primary" (click)="save()">
+                Save
+              </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
