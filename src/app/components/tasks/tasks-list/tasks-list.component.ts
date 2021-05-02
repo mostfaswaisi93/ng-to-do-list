@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Task } from 'src/app/models/task.model';
 import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { TasksService } from 'src/app/services/tasks.service';
   styleUrls: ['./tasks-list.component.css']
 })
 export class TasksListComponent implements OnInit {
-  tasks;
+  tasks: Task[];
   constructor(public tasksService: TasksService, public router: Router) {
     tasksService.getTasks().subscribe(data => (this.tasks = data));
   }
