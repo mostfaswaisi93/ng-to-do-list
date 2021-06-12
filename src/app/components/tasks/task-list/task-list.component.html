@@ -1,0 +1,50 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<table mat-table [dataSource]="tasks" matSort class="mat-elevation-z8" *ngIf="tasks.length > 0 && !isLoading">
+
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+        <td mat-cell *matCellDef="let tasks"> {{ tasks.position }} </td>
+    </ng-container> -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let tasks"> {{ tasks.name }} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let tasks"> {{ tasks.date | date }} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let tasks">
+            <span [ngSwitch]="tasks.status">
+        <span *ngSwitchCase="1"> New </span>
+            <span *ngSwitchCase="2"> In Progress </span>
+            <span *ngSwitchCase="3"> Completed </span>
+            <span *ngSwitchDefault> N/A </span>
+            </span>
+        </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+        <td mat-cell *matCellDef="let tasks">
+            <mat-action-row *ngIf="userIsAuthenticated && userId === tasks.creator">
+                <a mat-button color="primary" [routerLink]="['/edit', tasks.id]">EDIT</a>
+                <button mat-button color="warn" (click)="onDelete(tasks.id)">DELETE</button>
+            </mat-action-row>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [length]="totalTasks" [pageSize]="tasksPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="tasks.length > 0"></mat-paginator>
+<p class="info-text mat-body-2" *ngIf="tasks.length <= 0 && !isLoading">No Tasks added yet!</p>

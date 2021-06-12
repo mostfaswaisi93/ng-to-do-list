@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
 import { Page404Component } from './components/page404/page404.component';
-import { CreateTaskComponent } from './components/tasks/create-task/create-task.component';
-import { EditTaskComponent } from './components/tasks/edit-task/edit-task.component';
-import { ShowTaskComponent } from './components/tasks/show-task/show-task.component';
-import { TasksListComponent } from './components/tasks/tasks-list/tasks-list.component';
+import { TaskCreateComponent } from './components/tasks/task-create/task-create.component';
+import { TaskListComponent } from './components/tasks/task-list/task-list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'tasks', component: TasksListComponent },
-  { path: 'tasks/create', component: CreateTaskComponent },
-  { path: 'tasks/edit/:id', component: EditTaskComponent },
-  { path: 'tasks/show/:id', component: ShowTaskComponent },
+  { path: '', component: TaskListComponent },
+  { path: 'create', component: TaskCreateComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:taskId', component: TaskCreateComponent, canActivate: [AuthGuard] },
+  { path: 'auth', loadChildren: () => import('src/app/components/auth/auth.module').then(m => m.AuthModule) },
+  // { path: 'auth', loadChildren: './auth/auth.module#AuthModule' }
   { path: '**', component: Page404Component }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+mat-spinner {
+    margin: auto;
+}
+
+mat-paginator {
+    margin-top: 1rem;
+}
+
+.info-text {
+    text-align: center;
+}

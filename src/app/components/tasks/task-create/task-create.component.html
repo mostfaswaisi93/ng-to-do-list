@@ -1,0 +1,25 @@
+<mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form" (submit)="onSaveTask()" *ngIf="!isLoading">
+        <mat-form-field>
+            <input matInput type="text" formControlName="name" placeholder="Task Name">
+            <mat-error *ngIf="form.get('name').invalid">Please Enter a Task Name.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="date" formControlName="date" placeholder="Task Date">
+            <mat-error *ngIf="form.get('date').invalid">Please Enter a Task Date.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let st of stClass;" [value]="st.id">{{ st.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('status').invalid">Please Enter a Task Status.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput rows="4" formControlName="description" placeholder="Task Description"></textarea>
+            <mat-error *ngIf="form.get('description').invalid">Please Enter a Task Description.</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit">Save Task</button>
+    </form>
+</mat-card>

@@ -3,11 +3,11 @@
 Content:
 
 - Angular
-- typicode/json-server
-
-```
-$ json-server --watch db.json
-```
+- Angular Material
+- Node.js
+- Express.js
+- MongoDB
+- JSON Web Tokens (JWT)
 
 ## Get the Code
 
